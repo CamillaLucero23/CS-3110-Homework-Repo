@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+    <title>Form Example</title>
+</head>
+<body>
+	<header>
+		<h1>This is a Notepad using Gets & Posts instead of javascript!</h1>
+		<a href="prototype_notepad.html">Notepad</a>
+	</header>
+    
+    <main>
+		<section>
+			<form action="/api" method="POST">
+			<label for="notePOST">Note:</label>
+			<textarea name="notePOST" id="notePOST" placeholder="Put Notes Here..."></textarea>
+			<button type="submit">POST</button>
+		</form>
+		</section>
+		<p></p>
+		<section>
+			<form action="/api" method="GET">
+				<h2>Wanna get info instead? Try this!</h2>
+				<label for="note">Note we want to retreve:</label>
+				<input name="note" id="note" />
+				<button type="submit">GET</button>
+			</form>
+		</section>
+	</main>
+</body>

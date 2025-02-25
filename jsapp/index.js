@@ -19,7 +19,7 @@ const handleRequest = (req, res) => {
         (param) => param.split('=')
       ))
 
-      if (!params.note) {
+      if (!params.notePOST) {
         res.writeHead(400, { 'Content-Type': 'text/plain' })
         res.end('Bad Request: note parameters are required')
       } else {
@@ -40,7 +40,7 @@ const handleRequest = (req, res) => {
     let result = notes
 
     if (search) {
-      result = notes.filter(note => note.note.includes(search))
+      result = notes.filter(note => note.notePOST.includes(search))
     }
 
     if (result.length !== 0) {

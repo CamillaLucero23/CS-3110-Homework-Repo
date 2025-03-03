@@ -49,16 +49,17 @@ server.post('/api', (req, res, next) => {
 server.get('/api', (req, res, next) => {
 	
 	//get our requested param...
-	const index = req.query.index
+	let index = req.query.index
+	
+	if (index){
+		index = (JSON.parse(req.query)).index
+	}
 	
 	//let result hold our notes array
 	let result = notes
 	
 	//check if we have notes... if we dont then no need to proceed
-	if (notes.length === 0){
-		res.send(404, '404: Not Found | No notes exist in database')
-	}
-	else if (!index){
+	if (!index){
 		res.send(200, result)
 	}
 	//if our index exists, set result to that instead

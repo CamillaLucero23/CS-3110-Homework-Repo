@@ -45,8 +45,6 @@ const refreshNotes = () => {
 				noteSection.remove();
 				// Send AJAX request to delete the note from the server
 				deleteNote(note.indexOf(n))}
-				
-    
 			
 			// Create the edit button
 			const editButton = document.createElement('button');

@@ -1,51 +1,93 @@
+//DEL
+const deleteNote = (noteIndex) => {
+    fetch('/api', {
+        method: 'DELETE',
+        body: JSON.stringify({ noteIndex })
+    })
+    .then(refreshNotes);
+}
 
-function saveNote(){
-	//get our value from our form
-	const input = document.getElementById("notepad").value;
-	
-	//Create a section for our note
-	const noteSection = document.createElement('section');
-	//Define its id
-	noteSection.id = "newNote";
-	noteSection.className = 'note';
 
-	//Create a paragraph so we can display our input 
-	const noteParagraph = document.createElement('p');
-	noteParagraph.textContent = input;
+const editNote = (noteIndex, newNote) => {
+    fetch('/api', {
+        method: 'PUT',
+		body: JSON.stringify({ noteIndex, newNote })
+    })
+    .then(refreshNotes);
+}
+
+//GET
+const refreshNotes = () => {
+	fetch('/api', {method: 'GET'})
+	.then(body => body.json())
+	.then(note => {
+		
+		const notesContainer = document.getElementById('saved');
+		notesContainer.innerHTML = ''; // Clear any existing notes
+		
+		note.forEach((n) => {
+			
+			//Create a section for our note
+			const noteSection = document.createElement('section');
+			//Define its id
+			noteSection.id = note.indexOf(n);
+
+			//Create a paragraph so we can display our input 
+			const noteParagraph = document.createElement('p');
+			noteParagraph.textContent = n;
+			
+			// Create the delete button
+			const deleteButton = document.createElement('button');
+			deleteButton.textContent = 'Delete';
+			deleteButton.id = n + '_delete'
+			 deleteButton.onclick = () => {
+				// Remove the note section
+				noteSection.remove();
+				// Send AJAX request to delete the note from the server
+				deleteNote(note.indexOf(n))}
+			
+			// Create the edit button
+			const editButton = document.createElement('button');
+			editButton.textContent = 'Edit';
+			editButton.id = n + '_edit'
+			editButton.onclick = () => {
+				// Edit the note (you can add more advanced editing functionality here)
+				const newNote = prompt('Edit your note:', n);
+				if (newNote !== null && newNote !== n) {
+					noteParagraph.textContent = newNote;
+				// Send AJAX request to update the note on the server
+				editNote(note.indexOf(n), newNote)}
+			}
+        
   
-	//append to our new section
-	noteSection.appendChild(noteParagraph);
+			//append to our new section
+			noteSection.appendChild(noteParagraph);
+			noteSection.appendChild(deleteButton);
+			noteSection.appendChild(editButton);
 	
-	//Append our section to section in our document
-	const notesContainer = document.getElementById('saved');
-	notesContainer.appendChild(noteSection);
+			//Append our section to section in our document
+			notesContainer.appendChild(noteSection);
 	
-	//Show our button
-	document.getElementById('deleteNote').style.display = "block";
-	//And alert!
-	alert("Note Saved!");
+			/*//Show our button
+			document.getElementById('deleteNote').style.display = "block";*/
+		})
+	})
 }
 
-function deleteNote(){
-	//Get our note(s)
-	let note = document.getElementById("newNote");
-	while(typeof note !== 'undefined'){
-		//Remove it
-		note.remove();
-		//hide our button
-		document.getElementById('deleteNote').style.display = "none";
-		note = document.getElementById("newNote");
-	}
-}
+refreshNotes()
 
-function submitForm() {
-	//This prevent default stopped the form from refreshing page, which allows notes to be "saved" - probably could be done by not using a form, but too late :3
-    event.preventDefault();
-}
+//POST
+document.getElementById("savenote").addEventListener(
+  'click',
+  () => {
+	const note = document.getElementById('notepad').value
+	fetch('/api', {
+		method: 'POST',
+		body: JSON.stringify({ note })
+    }).then(refreshNotes)
+  }
+)
 
-//Listeners for our events
-document.getElementById("formNotepad").addEventListener('submit', submitForm);
 
-document.getElementById('savenote').addEventListener('click', saveNote);
 
-document.getElementById('deleteNote').addEventListener('click', deleteNote);
+

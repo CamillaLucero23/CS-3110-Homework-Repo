@@ -49,8 +49,7 @@ server.post('/api', (req, res, next) => {
 server.get('/api', (req, res, next) => {
 	
 	//get our requested param...
-	const param = JSON.parse(req.query)
-	const index = param.index
+	const index = req.query.index
 	
 	//let result hold our notes array
 	let result = notes

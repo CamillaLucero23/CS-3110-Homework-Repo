@@ -46,10 +46,6 @@ textarea {
 	color:black;
 }
 
-#saved button{
-	display:none;
-}
-
 button {
 	padding: 0.5rem 1rem;
 	background-color: var(--green);

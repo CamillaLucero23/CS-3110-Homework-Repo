@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="styles.css">
-    <title>Form Example</title>
-</head>
-<body>
-	<header>
-		<h1>This is a Notepad using Gets & Posts instead of javascript!</h1>
-		<a href="prototype_notepad.html">Notepad</a>
-	</header>
-    
-    <main>
-		<section>
-			<form action="/api" method="POST">
-			<label for="notePOST">Note:</label>
-			<textarea name="notePOST" id="notePOST" placeholder="Put Notes Here..."></textarea>
-			<button type="submit">POST</button>
-		</form>
-		</section>
-		<p></p>
-		<section>
-			<form action="/api" method="GET">
-				<h2>Wanna get info instead? Try this!</h2>
-				<label for="note">Note we want to retreve:</label>
-				<input name="note" id="note" />
-				<button type="submit">GET</button>
-			</form>
-		</section>
-	</main>
-</body>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="styles.css">
+		<meta charset="UTF-8">
+		<title>Notepad</title>
+	</head>
+	<body>
+		<header>
+			<h1>Notepad App</h1>
+			
+			<a href="http://jigsaw.w3.org/css-validator/check/referer">
+				<img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" />
+			</a>
+			
+		</header>
+		
+		<main>
+			<section id="sectionNotepad">
+				<textarea name="note" id="notepad" placeholder="Type your notes here..."></textarea>
+				<button id="savenote">Save Note</button>
+			</section>
+			<p></p>
+			<p></p>
+			<h1>Saved Notes</h1>
+			<section id="saved">
+				
+			</section>
+		</main>
+		<script src="javascript.js"></script>
+	</body>
+</html>
